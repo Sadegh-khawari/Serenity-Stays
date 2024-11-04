@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
@@ -7,21 +7,21 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 
-import { useCreateCabin } from "./useCreateCabin";
-import { useEditCabin } from "./useEditCabin";
+import {useCreateCabin} from "./useCreateCabin";
+import {useEditCabin} from "./useEditCabin";
 
-function CreateCabinForm({ cabinToEdit = {} }) {
-    const { id: editId, ...editValues } = cabinToEdit;
+function CreateCabinForm({cabinToEdit = {}, onCloseModal}) {
+    const {id: editId, ...editValues} = cabinToEdit;
     const isEditSession = Boolean(editId);
 
-    const { register, handleSubmit, reset, getValues, formState } = useForm({
+    const {register, handleSubmit, reset, getValues, formState} = useForm({
         defaultValues: isEditSession ? editValues : {},
     });
-    const { errors } = formState;
+    const {errors} = formState;
 
-    const { isCreating, createCabin } = useCreateCabin();
+    const {isCreating, createCabin} = useCreateCabin();
 
-    const { isEditing, editCabin } = useEditCabin();
+    const {isEditing, editCabin} = useEditCabin();
 
     const isWorking = isCreating || isEditing;
 
@@ -31,28 +31,28 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
         if (isEditSession)
             editCabin(
-                { newCabinData: { ...data, image }, id: editId },
+                {newCabinData: {...data, image}, id: editId},
                 {
                     onSuccess: (data) => {
-                        console.log(data);
                         reset();
+                        onCloseModal?.();
                     },
                 }
             );
         else
             createCabin(
-                { ...data, image: image },
+                {...data, image: image},
                 {
                     onSuccess: (data) => {
-                        console.log(data);
                         reset();
+                        onCloseModal?.();
                     },
                 }
             );
     }
 
     return (
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)} type={onCloseModal ? 'modal' : 'regular'}>
             <FormRow label="Cabin name" error={errors?.name?.message}>
                 <Input
                     type="text"
@@ -144,7 +144,10 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
             <FormRow>
                 {/* type is an HTML attribute! */}
-                <Button variation="secondary" type="reset">
+                <Button
+                    variation="secondary"
+                    type="reset"
+                    onClick={() => onCloseModal?.()}>
                     Cancel
                 </Button>
                 <Button disabled={isWorking}>
