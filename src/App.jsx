@@ -10,6 +10,7 @@ import Account from "./pages/Account";
 import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
+import Checkin from "./pages/Checkin";
 
 import GlobalStyles from "./styles/GlobalStyles";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -41,6 +42,11 @@ function App() {
                         <Route
                             path="bookings/:bookingId"
                             element={<Booking />}
+                        />
+
+                        <Route
+                            path="checkin/:bookingId"
+                            element={<Checkin />}
                         />
                         <Route path="cabins" element={<Cabins />} />
                         <Route path="users" element={<Users />} />
