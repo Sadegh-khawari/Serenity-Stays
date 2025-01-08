@@ -10,7 +10,6 @@ async function login({ email, password }) {
         throw new Error(error.message);
     }
 
-    console.log(data);
     return data;
 }
 
@@ -21,12 +20,15 @@ async function getCurrentUser() {
 
     const { data, error } = await supabase.auth.getUser();
 
-    console.log(data);
-
     if (error) {
         throw new Error(error.message);
     }
     return data?.user;
 }
 
-export { login, getCurrentUser };
+async function logout() {
+    const { error } = await supabase.auth.signOut();
+    if (error) throw new Error(error.message);
+}
+
+export { login, getCurrentUser, logout };
