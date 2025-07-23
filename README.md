@@ -1,6 +1,8 @@
 # The Wild Oasis - Hotel Management App
 
-**Live Demo:** [https://the-wild-oasis-your-name.vercel.app/](https://serenity-stays.vercel.app/)
+* **Live Demo:** [https://the-wild-oasis-your-name.vercel.app/](https://serenity-stays.vercel.app/)
+* **Email for Test:** test@test.com
+* **Password for Test:** testing
 
 ![The Wild Oasis Dashboard Screenshot](./assets/dashboard-screenshot.png)
 
